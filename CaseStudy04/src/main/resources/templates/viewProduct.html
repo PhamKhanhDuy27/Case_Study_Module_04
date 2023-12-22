@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:include="~{head.html}"></div>
+</head>
+<body>
+<div th:include="~{bodyAdmin}"></div>
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-2">THÔNG TIN SẢN PHẨM</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-fluid pt-0">
+    <form id="myForm" class="modal-content-form" th:object="${productDto}" th:action="@{/admin/product/update}" method="post">
+        <label id="id" th:field="*{id}"><b>ID</b></label>
+        <input th:value="${productDto.id}" type="number" placeholder="Nhập ID" name="id" readonly>
+
+        <label id="name"><b>Tên sản phẩm</b></label>
+        <input th:value="${productDto.name}" th:field="*{name}" type="text" placeholder="Nhập tên sản phẩm" name="name" required>
+
+        <label id="price"><b>Giá sản phẩm</b></label>
+        <input th:value="${productDto.price}" th:field="*{price}" type="text" placeholder="Nhập giá sản phẩm" name="price" required>
+
+        <label id="quantity"><b>SL tồn kho</b></label>
+        <input th:value="${productDto.quantity}" th:field="*{quantity}" type="text" placeholder="Nhập số lượng tồn kho" name="quantity" required>
+
+        <label for="categoryId"><b>Category</b></label>
+        <select id="categoryId" th:field="*{categoryId}" name="categoryId" required>
+            <option th:value="${productDto.categoryId}" th:each="categoryDto : ${categoryDtoList}" th:if="${categoryDto.id == productDto.categoryId}" th:text="${categoryDto.name}"></option>
+            <option th:each="category : ${categoryDtoList}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+
+        <button type="submit" class="signupbtn">Cập nhật</button>
+    </form>
+</div>
+
+<div th:include="~{footer.html}"></div>
+</body>
+</html>

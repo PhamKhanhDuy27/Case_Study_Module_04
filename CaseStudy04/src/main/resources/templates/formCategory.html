@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:include="~{head.html}"></div>
+</head>
+<body>
+<div th:include="~{bodyAdmin.html}"></div>
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-2">ĐĂNG KÝ DANH MỤC</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-fluid pt-0">
+    <form id="myForm" class="modal-content-form" th:object="${categoryDto}" th:action="@{/admin/category/add}" method="post">
+        <label id="name"><b>Tên danh mục</b></label>
+        <input type="text" placeholder="Nhập tên Category" th:field="*{name}" name="name" required>
+
+        <label for="categoryId"><b>Danh mục phụ thuộc</b></label>
+        <select id="categoryId" th:field="*{parentId}" name="parentId">
+            <option value="">Chọn</option>
+            <option th:each="category : ${categoryDtoList}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+
+        <button type="submit" class="signupbtn">Thêm mới</button>
+    </form>
+</div>
+
+<div th:include="~{footer.html}"></div>
+</body>
+</html>

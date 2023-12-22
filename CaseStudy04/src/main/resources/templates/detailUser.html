@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:include="~{head.html}"></div>
+</head>
+<body>
+<div th:include="~{body.html}"></div>
+
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-2">THÔNG TIN TÀI KHOẢN</h1>
+    </div>
+</div>
+
+<div class="container-fluid pt-0">
+    <form id="myForm" class="modal-content-form" th:object="${userDto}" th:action="@{/user/update}" method="post">
+        <label id="name"><b>Name</b></label>
+        <input type="text" th:value="${userDto.name}" placeholder="Enter Name" th:field="*{name}" name="name" required>
+
+        <label id="phoneNumber"><b>Phone Number</b></label>
+        <input type="text" th:value="${userDto.phoneNumber}" placeholder="Enter Phone Number" th:field="*{phoneNumber}" name="phoneNumber" readonly>
+
+        <label id="email"><b>Email</b></label>
+        <input type="text" th:value="${userDto.email}" placeholder="Enter Email" th:field="*{email}" name="email" required>
+
+        <label id="psw"><b>Password</b></label>
+        <input type="password" th:value="${userDto.password}" placeholder="Enter Password" th:field="*{password}" name="psw">
+
+        <label id="role" th:field="*{role}"><b>Role</b></label>
+        <input type="text" placeholder="Enter Role" name="role" value="USER" readonly>
+
+        <button type="submit" class="signupbtn">Cập nhật</button>
+    </form>
+</div>
+
+<div th:include="~{footer.html}"></div>
+
+</body>
+</html>

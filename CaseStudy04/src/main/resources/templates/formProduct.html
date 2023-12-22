@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:include="~{head.html}"></div>
+</head>
+<body>
+<div th:include="~{bodyAdmin.html}"></div>
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-2">ĐĂNG KÝ SẢN PHẨM</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-fluid pt-0">
+    <form id="myForm" class="modal-content-form" th:object="${productDto}" th:action="@{/admin/product/add}" method="post">
+        <label id="name"><b>Tên sản phẩm</b></label>
+        <input type="text" placeholder="Nhập tên sản phẩm" th:field="*{name}" name="name" required>
+
+        <label id="price"><b>Giá sản phẩm</b></label>
+        <input type="text" placeholder="Nhập giá sản phẩm" th:field="*{price}" name="price" required>
+
+        <label id="quantity"><b>SL tồn kho</b></label>
+        <input type="text" placeholder="Nhập số lượng tồn kho" th:field="*{quantity}" name="quantity" required>
+
+        <label for="categoryId1"><b>Category cấp 1</b></label>
+        <select id="categoryId1" name="categoryId1" required>
+            <option value="">Chọn</option>
+            <option th:each="category : ${categoryDtoList}" th:if="${category.parentId == null}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+
+        <label for="categoryId2"><b>Category cấp 2</b></label>
+        <select id="categoryId2" name="categoryId2" required>
+            <option value="">Chọn</option>
+            <option th:each="subCategory : ${categoryDtoList}" th:if="${subCategory.parentId != null}" th:value="${subCategory.id}" th:text="${subCategory.name}" class="sub-category" th:data-parent-id="${subCategory.parentId}"></option>
+        </select>
+
+        <label for="categoryId3"><b>Category cấp 3</b></label>
+        <select id="categoryId3" th:field="*{categoryId}" name="categoryId3" required>
+            <option value="">Chọn</option>
+            <option th:each="subCategory1 : ${categoryDtoList}" th:if="${subCategory1.parentId != null}" th:value="${subCategory1.id}" th:text="${subCategory1.name}" class="sub-category-1" th:data-parent-id="${subCategory1.parentId}"></option>
+        </select>
+
+        <button type="submit" class="signupbtn">Thêm mới</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('categoryId1').addEventListener('change', function() {
+        var parentId = this.value;
+        var options = document.querySelectorAll('#categoryId2 .sub-category');
+        options.forEach(function(option) {
+            if (option.dataset.parentId === parentId) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    });
+
+    document.getElementById('categoryId2').addEventListener('change', function() {
+        var parentId = this.value;
+        var options = document.querySelectorAll('#categoryId3 .sub-category-1');
+        options.forEach(function(option) {
+            if (option.dataset.parentId === parentId) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<div th:include="~{footer.html}"></div>
+</body>
+</html>

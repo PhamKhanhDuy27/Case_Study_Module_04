@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <div th:include="~{head.html}"></div>
+</head>
+
+<body>
+<div th:include="~{bodyAdmin.html}"></div>
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-2">DANH SÁCH TÀI KHOẢN</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+
+    <!-- Cart Start -->
+    <div class="container-fluid pt-0">
+        <div class="row px-xl-5">
+            <div class="col-lg-12 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>TÊN KHÁCH HÀNG</th>
+                            <th>SỐ ĐIỆN THOẠI</th>
+                            <th>EMAIL</th>
+                            <th>QUYỀN</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <tr th:each="user : ${userManagementDtoPage}">
+                            <td class="align-middle" th:text="${user.id}"></td>
+                            <td class="align-middle" th:text="${user.name}"></td>
+                            <td class="align-middle" th:text="${user.phoneNumber}"></td>
+                            <td class="align-middle" th:text="${user.email}"></td>
+                            <td class="align-middle" th:text="${user.role}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-12 pb-1">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mb-3">
+                            <li class="page-item">
+                                <a th:if="${userManagementDtoPage.hasPrevious()}" th:href="@{${currentUrl}(page=${userManagementDtoPage.number - 1})}" class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item active">
+                                <a th:text="${userManagementDtoPage.number + 1}"  class="page-link" href="#"></a>
+                            </li>
+                            <li class="page-item">
+                                <a th:if="${userManagementDtoPage.hasNext()}" th:href="@{${currentUrl}(page=${userManagementDtoPage.number + 1})}" class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart End -->
+<div th:include="~{footer.html}"></div>
+
+</body>
+
+</html>
